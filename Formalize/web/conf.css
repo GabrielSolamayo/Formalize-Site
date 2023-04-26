@@ -4,22 +4,18 @@ header{
     padding-top: 10px;
     padding-bottom: 20px;
     background-image: linear-gradient(
-        #A057DF 70%,
-        #f4f2f2
+        #E74646 90%,
+        #FA9884
     );
 }
 
 nav{
-
-    background-image: linear-gradient(
-        #f4f2f2 9%,
-        #ffffff
-    );
+    color: aliceblue;
 }
 
 main{
     height: 400px;
-    background-color: #ffffff;
+    background-color: #FFF3E2;
 }
 
 iframe{

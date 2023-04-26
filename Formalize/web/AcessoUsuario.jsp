@@ -1,31 +1,33 @@
+<%-- 
+    Document   : AcessoUsuario
+    Created on : 24 de abr. de 2023, 19:25:34
+    Author     : solam
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Formalize</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="./conf.css">
+        <link rel="stylesheet" type="text/css" href="conf.css">
         <link rel="stylesheet" type="text/css" href="./menu.css">
     </head>
     <body>
         <!–Azul–>
         <header> 
             <h1 class="titulo">Formalize</h1>
-            <form method="POST" action="Controle">
-                <input type="hidden" name="flag" value="login">
-                <label for="usu">Usuário: </label>
-                <input type="text" name="usuario" id="usu">
-                <label for="sen">Senha: </label>
-                <input type="password" name="senha" id="sen">
-                <input type="submit" value="Entrar">
-            </form>
+            <p style="margin-right: 1vw">${mens}</p>
         </header>
         
         <!– Amarelo  –>
         <nav>
             <div class="navbar">
-                <a href="./index.html">Home</a>
+                <a href="./AcessoUsuario.jsp">Home</a>
                 <a href="./sobreNos.html">Sobre Nós</a>
+                <a href="#Formulario">Criar Formulário</a>
             </div>
         </nav>
         <hr/>
@@ -41,3 +43,4 @@
         </footer>
     </body>
 </html>
+
