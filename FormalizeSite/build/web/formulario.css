@@ -1,0 +1,55 @@
+* {
+    margin: 0 auto;
+}
+
+.formulario-content {
+    width: 700px;
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    align-items: center;
+    align-content: center;
+
+
+
+    padding: 20px 0px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 1px;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+#nomSob {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+
+}
+
+#nomeC,
+#sobrenomeC {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+label {
+    margin: 0px;
+}
+
+input {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
