@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -37,4 +38,71 @@ public class FormalizeDAO {
         }
         
     }
+    
+    public int criarForm(Servico servico){
+        connect();
+        try{
+            manager.getTransaction().begin();
+            manager.persist(servico);
+            manager.getTransaction().commit();
+            return 1;
+        }catch(NoResultException e){
+            return 2;
+        } 
+    }
+    
+    public int criarCli(Cliente cliente){
+        connect();
+        try{
+            manager.getTransaction().begin();
+            manager.persist(cliente);
+            manager.getTransaction().commit();
+            return 1;
+        }catch(NoResultException e){
+            return 2;
+        } 
+    }
+    
+    public int criarVei(Veiculo veiculo){
+        connect();
+        try{
+            manager.getTransaction().begin();
+            manager.persist(veiculo);
+            manager.getTransaction().commit();
+            return 1;
+        }catch(NoResultException e){
+            return 2;
+        } 
+    }
+    
+    public List<Servico> listarServico() {
+        connect();
+        try {
+            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findAll", Servico.class);//Query tirado da classe "Funcionario";
+            List<Servico> servicos = q.getResultList();
+            return servicos;
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+    
+    public int excluirServico(int idServ) {
+        connect();
+
+        try {
+            Servico serv = manager.find(Servico.class, idServ);
+            if (serv == null) {
+                return 2;//Nao Existe;
+            } else {
+                manager.getTransaction().begin();
+                manager.remove(serv);//So aceita tipos Object;
+                manager.getTransaction().commit();
+                return 1;//Encontrados;
+            }
+        } catch (Exception ex) {
+            return 0;//Nao encontrado;
+        }
+
+    }
+    
 }

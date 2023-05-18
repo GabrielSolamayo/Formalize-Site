@@ -51,7 +51,7 @@ public class Servico implements Serializable {
     private float valorServ;
     @Basic(optional = false)
     @Column(name = "dataServico")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataServico;
     @JoinColumn(name = "email", referencedColumnName = "email")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

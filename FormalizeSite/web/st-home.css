@@ -1,0 +1,152 @@
+* {
+    margin: auto 5px;
+    padding: 0;
+
+}
+
+body {
+    background-color: rgba(0, 19, 44, 0.456);
+}
+
+header {
+    margin-top: 10px;
+    background-color: rgb(60, 60, 60);
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    padding: 0px;
+}
+
+.img-icon {
+    margin-right: -20px;
+}
+
+.img-icon3 {
+    margin-right: 15px;
+    text-align: right;
+    flex: 65%;
+}
+
+
+.nav-bar {
+
+    background-image: url(../img/nav-bar-home.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-attachment: local;
+    background-size: cover;
+    width: auto;
+    background-position-x: center;
+    background-position-y: center;
+    align-items: center;
+    height: 458px;
+
+}
+
+.nav-p-text {
+    padding-top: 50px;
+    display: flex;
+    font-size: 20px;
+    text-align: left;
+    margin-left: 20px;
+    font-family: "arial", sans-serif, cursive;
+    color: black;
+    letter-spacing: 1px;
+
+}
+
+.div-icons-footer {
+    text-align: center;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+footer {
+
+    background-color: rgb(60, 60, 60);
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px 0px 0px;
+    margin-bottom: 20px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: cursive;
+}
+
+a:hover {
+    text-decoration: none;
+    font-size: 33px;
+
+}
+
+img:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width: 730px) {
+
+
+
+    .nav-p-text {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 730px) and (min-width: 575px) {
+    h1 {
+        font-size: 16px;
+    }
+
+    .nav-bar {
+
+        width: auto;
+        background-position-x: -580px;
+        background-position-y: bottom;
+
+    }
+
+    .nav-p-titulo {
+        font-size: 16px;
+    }
+
+    .nav-p-text {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 574px) and (min-width: 0px) {
+
+
+    h1 {
+        font-size: 12px;
+    }
+
+    .nav-bar {
+
+        width: auto;
+        background-position-x: -580px;
+        background-position-y: bottom;
+
+    }
+
+    .nav-p-titulo {
+        font-size: 16px;
+    }
+
+    .nav-p-text {
+        font-size: 12px;
+    }
+}

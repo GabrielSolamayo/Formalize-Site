@@ -5,6 +5,12 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Acesso;
+import model.Cliente;
+import model.Colaborador;
 import model.FormalizeDAO;
+import model.Servico;
+import model.Veiculo;
 
 /**
  *
@@ -26,12 +36,12 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String flag, mensagem;
+        FormalizeDAO dao = new FormalizeDAO();
         flag = request.getParameter("flag");
         if(flag.equalsIgnoreCase("login")){
-            String user, password;
+            String user ,password;
             user = request.getParameter("usuario");
             password = request.getParameter("senha");
-            
             Acesso acesso = new FormalizeDAO().validarLogin(user, password);
             if(acesso == null){
                 request.setAttribute("m", "Usuário não encontrado seu PATIFE >:C");
@@ -45,6 +55,73 @@ public class Controller extends HttpServlet {
                 RequestDispatcher disp = request.getRequestDispatcher("AcessoUsuario.jsp");
                 disp.forward(request, response);
             }
+            
+        }else if(flag.equalsIgnoreCase("CriarFormulario")){
+            
+            Servico servico = new Servico();
+            Veiculo veiculo = new Veiculo();
+            Cliente cliente = new Cliente();
+            
+            cliente.setNome(request.getParameter("nomeCliente"));
+            cliente.setEmail(request.getParameter("emailCliente"));
+            cliente.setCpf(request.getParameter("cpfCliente"));
+            cliente.setEndereco(request.getParameter("enderecoCliente"));
+            cliente.setTelefone(request.getParameter("telefoneCliente"));
+            int resp1 = new FormalizeDAO().criarCli(cliente);
+            
+            
+            veiculo.setPlaca(request.getParameter("placaVeiculo"));
+            veiculo.setIdCliente(cliente);
+            veiculo.setMarca(request.getParameter("marcaVeiculo"));
+            veiculo.setModelo(request.getParameter("modeloVeiculo")); 
+            veiculo.setTipo(request.getParameter("tipoVeiculo"));
+            veiculo.setAno(request.getParameter("anoVeiculo"));
+            
+            int resp2 = new FormalizeDAO().criarVei(veiculo);
+            
+            servico.setTipoServico(request.getParameter("tipoS"));
+            float valor = Float.parseFloat(request.getParameter("valor").replace(',', '.'));//Convertendo para float o 'text' do formulario;
+            servico.setValorServ(valor);
+            servico.setPlaca(veiculo);
+            LocalDate dataAtual = LocalDate.now();
+            Date dataA = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            servico.setDataServico(dataA);
+            
+            
+
+
+            int resp = new FormalizeDAO().criarForm(servico);
+            
+            switch (resp) {
+                case 1:
+                    mensagem = "Formulario salvo com sucesso";
+                    break;
+                case 2:
+                    mensagem = "Erro ao tentar criar";
+                    break;
+                default:
+                    mensagem = "Entre em contato com o administrador";
+                    break;
+            }
+        }else if (flag.equalsIgnoreCase("listarHistorico")){
+            List<Servico> servico = dao.listarServico();
+            request.setAttribute("listarServicos", servico);
+            RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
+            disp.forward(request, response);
+            
+        }else if(flag.equalsIgnoreCase("ExcluirServico")){
+            int idServ = Integer.parseInt(request.getParameter("idServ"));
+            int resultado = dao.excluirServico(idServ);
+            if(resultado == 1){
+                mensagem = "Servico excluído com sucesso";
+            }else if(resultado == 2){
+                mensagem = "Servico '"+idServ+"' nao existe";
+            }else{
+                mensagem = "Erro ao tentar excluir o Servico";
+            }
+            request.setAttribute("m", mensagem);
+            RequestDispatcher disp = request.getRequestDispatcher("MensagensErro.jsp");
+            disp.forward(request, response);
             
         }
         

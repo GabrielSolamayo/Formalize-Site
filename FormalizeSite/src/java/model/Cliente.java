@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente"),
     @NamedQuery(name = "Cliente.findByCpf", query = "SELECT c FROM Cliente c WHERE c.cpf = :cpf"),
     @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cliente.findBySobrenome", query = "SELECT c FROM Cliente c WHERE c.sobrenome = :sobrenome"),
+    @NamedQuery(name = "Cliente.findBySobrenome", query = "SELECT c FROM Cliente c WHERE c.endereco = :endereco"),
     @NamedQuery(name = "Cliente.findByTelefone", query = "SELECT c FROM Cliente c WHERE c.telefone = :telefone"),
     @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email")})
 public class Cliente implements Serializable {
@@ -51,13 +51,13 @@ public class Cliente implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
-    @Column(name = "sobrenome")
-    private String sobrenome;
-    @Basic(optional = false)
     @Column(name = "telefone")
     private String telefone;
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @Column(name = "endereco")
+    private String endereco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", fetch = FetchType.EAGER)
     private List<Veiculo> veiculoList;
 
@@ -68,11 +68,11 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String cpf, String nome, String sobrenome, String telefone) {
+    public Cliente(Integer idCliente, String cpf, String nome, String endereco, String telefone) {
         this.idCliente = idCliente;
         this.cpf = cpf;
         this.nome = nome;
-        this.sobrenome = sobrenome;
+        this.endereco = endereco;
         this.telefone = telefone;
     }
 
@@ -100,12 +100,12 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getTelefone() {
@@ -157,5 +157,7 @@ public class Cliente implements Serializable {
     public String toString() {
         return "model.Cliente[ idCliente=" + idCliente + " ]";
     }
+    
+    
     
 }
