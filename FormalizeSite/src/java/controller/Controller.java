@@ -123,6 +123,22 @@ public class Controller extends HttpServlet {
             RequestDispatcher disp = request.getRequestDispatcher("MensagensErro.jsp");
             disp.forward(request, response);
             
+        } else if(flag.equalsIgnoreCase("AlterarFormulario")){
+            
+            String tipoServ, nomeCli, emailCli, cpfCli, telefoneCli, enderecoCli, marcaVei, modeloVei, placaVei, tipoVei, anoVei;  
+            float valor;
+            int idServ, idCli;
+            int resultado = dao.alterarServico(tipoServ = request.getParameter("tipoServ"), nomeCli = request.getParameter("nomeCli"), emailCli = request.getParameter("emailCli"), cpfCli = request.getParameter("cpfCli"), telefoneCli = request.getParameter("telefoneCli"), enderecoCli = request.getParameter("enderecoCli"), marcaVei = request.getParameter("marcaVei"), modeloVei = request.getParameter("modeloVei"), placaVei = request.getParameter("placaVei"), tipoVei = request.getParameter("tipoVei"), anoVei = request.getParameter("anoVei"), valor = Float.parseFloat(request.getParameter("valor")), idServ = Integer.parseInt(request.getParameter("idServ")), idCli = Integer.parseInt(request.getParameter("idClo")));
+            
+            if (resultado == 1) {
+                mensagem = "Formulario alterado com sucesso";
+            } else {
+                mensagem = "Erro ao tentar alterar dados do Formulario";
+            }
+            
+            request.setAttribute("m", mensagem);
+            RequestDispatcher disp = request.getRequestDispatcher("MensagensErro.jsp");
+            disp.forward(request, response);
         }
         
     }

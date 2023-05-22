@@ -105,4 +105,39 @@ public class FormalizeDAO {
 
     }
     
+    public int alterarServico(String tipoServ, String nomeCli, String emailCli, String cpfCli, String telefoneCli, String enderecoCli, String marcaVei, String modeloVei, String placaVei, String tipoVei, String anoVei, float valor, int idServ, int idCli) {
+        connect();
+
+        try {
+            Servico serv = manager.find(Servico.class, idServ);
+            Veiculo vei = manager.find(Veiculo.class, placaVei);
+            Cliente cli = manager.find(Cliente.class, idCli);
+            
+            cli.setNome(nomeCli);
+            cli.setEmail(emailCli);
+            cli.setTelefone(telefoneCli);
+            cli.setCpf(cpfCli);
+            cli.setEndereco(enderecoCli);
+            
+            vei.setIdCliente(cli);
+            vei.setAno(anoVei);
+            vei.setMarca(marcaVei);
+            vei.setModelo(modeloVei);
+            vei.setPlaca(placaVei);
+            vei.setTipo(tipoVei);
+            
+            serv.setPlaca(vei);
+            serv.setTipoServico(tipoServ);
+            serv.setValorServ(valor);
+
+            manager.getTransaction().begin();
+            manager.merge(serv);//So aceita tipos Object;
+            manager.getTransaction().commit();
+            return 1;//Encontrados;
+        } catch (Exception ex) {
+            return 0;//Nao encontrado;
+        }
+
+    }
+    
 }
