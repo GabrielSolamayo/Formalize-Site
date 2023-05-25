@@ -15,7 +15,7 @@
                     <label for="filtrar">Filtrar:</label>
                     <input type="filtrar" size="50" maxlength="50" name="filtrar" id="filtrar" />
     
-                    <select id="cars">
+                    <select id="opcoes" name="opcoes">
                         <option value="tipoServ">Tipo de Serviço</option>
                         <option value="data">Data</option>
                         <option value="nomeCli">Nome do Cliente</option>
@@ -23,6 +23,7 @@
                     </select>
                     <input type="submit" value="Pesquisar">
                 </p>
+            </form>
         </nav>
         <main>
             <iframe src="Controller?flag=listarHistorico" name="conteudo"></iframe>

@@ -12,7 +12,7 @@
     </head>
     <body>
         <%
-            List<Servico> listaServicos = (List<Servico>)request.getAttribute("listarServicos");
+            List<Servico> listaServicos = (List<Servico>) request.getAttribute("listarServicos");
         %>
         <table>
             <tr>
