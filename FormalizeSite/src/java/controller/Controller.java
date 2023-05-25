@@ -87,7 +87,6 @@ public class Controller extends HttpServlet {
             Date dataA = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
             servico.setDataServico(dataA);
             
-            
 
 
             int resp = new FormalizeDAO().criarForm(servico);
@@ -128,7 +127,23 @@ public class Controller extends HttpServlet {
             String tipoServ, nomeCli, emailCli, cpfCli, telefoneCli, enderecoCli, marcaVei, modeloVei, placaVei, tipoVei, anoVei;  
             float valor;
             int idServ, idCli;
-            int resultado = dao.alterarServico(tipoServ = request.getParameter("tipoServ"), nomeCli = request.getParameter("nomeCli"), emailCli = request.getParameter("emailCli"), cpfCli = request.getParameter("cpfCli"), telefoneCli = request.getParameter("telefoneCli"), enderecoCli = request.getParameter("enderecoCli"), marcaVei = request.getParameter("marcaVei"), modeloVei = request.getParameter("modeloVei"), placaVei = request.getParameter("placaVei"), tipoVei = request.getParameter("tipoVei"), anoVei = request.getParameter("anoVei"), valor = Float.parseFloat(request.getParameter("valor")), idServ = Integer.parseInt(request.getParameter("idServ")), idCli = Integer.parseInt(request.getParameter("idClo")));
+            tipoServ = request.getParameter("tipoS");
+            nomeCli = request.getParameter("nomeCliente");
+            emailCli = request.getParameter("emailCliente");
+            cpfCli = request.getParameter("cpfCliente");
+            telefoneCli = request.getParameter("telefoneCliente");
+            enderecoCli = request.getParameter("enderecoCliente");
+            marcaVei = request.getParameter("marcaVeiculo");
+            modeloVei = request.getParameter("modeloVeiculo");
+            placaVei = request.getParameter("placaVeiculo");
+            tipoVei = request.getParameter("tipoVeiculo");
+            anoVei = request.getParameter("anoVeiculo");
+            valor = Float.parseFloat(request.getParameter("valor"));
+            idServ = Integer.parseInt(request.getParameter("idServ"));
+            idCli = Integer.parseInt(request.getParameter("idCli"));
+            
+            
+            int resultado = dao.alterarServico(tipoServ, nomeCli, emailCli, cpfCli, telefoneCli, enderecoCli, marcaVei, modeloVei, placaVei, tipoVei, anoVei, valor, idServ, idCli);
             
             if (resultado == 1) {
                 mensagem = "Formulario alterado com sucesso";
@@ -139,6 +154,11 @@ public class Controller extends HttpServlet {
             request.setAttribute("m", mensagem);
             RequestDispatcher disp = request.getRequestDispatcher("MensagensErro.jsp");
             disp.forward(request, response);
+        } else if(flag.equalsIgnoreCase("VerServico")){
+            int idServ = Integer.parseInt(request.getParameter("idServ"));
+            
+            
+            
         }
         
     }

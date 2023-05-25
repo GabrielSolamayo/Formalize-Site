@@ -129,6 +129,7 @@ public class FormalizeDAO {
             serv.setPlaca(vei);
             serv.setTipoServico(tipoServ);
             serv.setValorServ(valor);
+            
 
             manager.getTransaction().begin();
             manager.merge(serv);//So aceita tipos Object;
