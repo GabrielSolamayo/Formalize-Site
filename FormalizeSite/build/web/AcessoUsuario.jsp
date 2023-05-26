@@ -15,10 +15,22 @@
         <link rel="stylesheet" type="text/css" href="./menu.css">
     </head>
     <body>
+        
+
+              <%
+                    session = request.getSession(false);
+                    if (session != null) {
+                        String nome = (String) session.getAttribute("user");
+                    } else {
+                        out.print("<p>Acesso não autorizado. Faça <a href='index.html'>login</a> ou <a href='cadastre_se.html'>cadastre-se</a>. </p>");
+                    }
+                %>         
+        
         <!–Azul–>
         <header> 
             <h1 class="titulo">Formalize</h1>
             <p style="margin-right: 1vw">${mens}</p>
+            <p style="margin-right: 1vw">${nome}</p>
         </header>
 
         <!– Amarelo  –>

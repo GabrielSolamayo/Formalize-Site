@@ -14,6 +14,7 @@
         <%
             List<Servico> listaServicos = (List<Servico>) request.getAttribute("listarServicos");
         %>
+               
         <table>
             <tr>
                 <th>Tipo de Serviço</th>

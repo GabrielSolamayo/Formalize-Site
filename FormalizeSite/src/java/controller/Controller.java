@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Acesso;
 import model.Cliente;
 import model.Colaborador;
@@ -37,6 +38,7 @@ public class Controller extends HttpServlet {
         String flag, mensagem;
         FormalizeDAO dao = new FormalizeDAO();
         flag = request.getParameter("flag");
+        HttpSession session = null;
         if (flag.equalsIgnoreCase("login")) {
             String user, password;
             user = request.getParameter("usuario");
@@ -47,8 +49,16 @@ public class Controller extends HttpServlet {
                 RequestDispatcher disp = request.getRequestDispatcher("MensagensErro.jsp");
                 disp.forward(request, response);
             } else {
-                String nome;
+
+                String nome, email;
                 nome = acesso.getColaborador().getNome();
+                email = acesso.getColaborador().getEmail();
+                
+
+                session = request.getSession();
+                session.setAttribute("email", email);
+                //String n = (String) session.getAttribute("email");
+
                 mensagem = "Bem vindo " + nome;
                 request.setAttribute("mens", mensagem);
                 RequestDispatcher disp = request.getRequestDispatcher("AcessoUsuario.jsp");
@@ -60,6 +70,7 @@ public class Controller extends HttpServlet {
             Servico servico = new Servico();
             Veiculo veiculo = new Veiculo();
             Cliente cliente = new Cliente();
+            Colaborador colab = new Colaborador();
 
             cliente.setNome(request.getParameter("nomeCliente"));
             cliente.setEmail(request.getParameter("emailCliente"));
@@ -84,6 +95,11 @@ public class Controller extends HttpServlet {
             LocalDate dataAtual = LocalDate.now();
             Date dataA = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
             servico.setDataServico(dataA);
+            
+            String emaill = (String) session.getAttribute("email");
+            colab.setEmail(emaill);
+            
+            servico.setEmail(colab);
 
             int resp = new FormalizeDAO().criarForm(servico);
 
