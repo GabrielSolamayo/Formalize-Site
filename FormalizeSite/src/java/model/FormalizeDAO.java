@@ -12,10 +12,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author gabriel.esmunoz
- */
+
 public class FormalizeDAO {
 
     private EntityManagerFactory conn;
@@ -98,18 +95,69 @@ public class FormalizeDAO {
             return null;
         }
     }
+    
+    public List<Servico> listarServicoPlaca(String placa) {
+        connect();
+        try {
+            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByPlacaServ", Servico.class);//Query tirado da classe "Servico";
+            q.setParameter("placa", placa);
+            List<Servico> servicos = q.getResultList();
+            return servicos;
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+    
+//    public List<Servico> listarServicoNomeCli(String nomeCli) {
+//        connect();
+//        try {
+//            TypedQuery<Servico> q = manager.createQuery("SELECT s FROM Servico s INNER JOIN s.veiculo v INNER JOIN v.cliente c WHERE c.nome LIKE ?", Servico.class);//Query tirado da classe "Servico";
+//            q.setParameter(1, nomeCli + "%");
+//            List<Servico> servicos = q.getResultList();
+//            return servicos;
+//        } catch (NoResultException ex) {
+//            return null;
+//        }
+//    }
 
     public List<Servico> listarServicoNomeCli(String nomeCli) {
         connect();
         try {
-            Query q = manager.createNativeQuery("Select servico.tipo_servico, servico.placa, servico.valor_serv, servico.dataServico from servico inner join veiculo on servico.placa = veiculo.placa inner join cliente on veiculo.idCliente = cliente.idCliente where cliente.nome LIKE ?");
+            Query q = manager.createNativeQuery("Select servico.idServico, servico.tipo_servico, servico.placa, servico.valor_serv, servico.dataServico, servico.email from servico inner join veiculo on servico.placa = veiculo.placa inner join cliente on veiculo.idCliente = cliente.idCliente where cliente.nome LIKE ?");
             q.setParameter(1, nomeCli + "%");
+            //Começar aqui.
             List<Servico> servicos = q.getResultList();
             return servicos;
         } catch (Exception ex) {
             return null;
         }
     }
+    
+    
+    
+    public List<Servico> listarServicoData(String data) {
+        connect();
+        try {
+            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByDataServico", Servico.class);//Query tirado da classe "Servico";
+            q.setParameter("dataServico", '%'+data+'%');
+            List<Servico> servicos = q.getResultList();
+            return servicos;
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+    
+//    public List<Servico> listarServicoPlaca(String placa) {
+//        connect();
+//        try {
+//            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByTipoServico", Servico.class);//Query tirado da classe "Servico";
+//            q.setParameter("tipoServico", tipoServ);
+//            List<Servico> servicos = q.getResultList();
+//            return servicos;
+//        } catch (NoResultException ex) {
+//            return null;
+//        }
+//    }
 /*  Select servico.idServico, servico.tipo_servico, servico.placa, servico.valor_serv, servico.dataServico from `form-database`.servico
               inner join veiculo on servico.placa = veiculo.placa
               inner join cliente on veiculo.idCliente = cliente.idCliente

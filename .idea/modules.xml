@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Formalize-Site.iml" filepath="$PROJECT_DIR$/.idea/Formalize-Site.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FormalizeSite/src/FormalizeSite.iml" filepath="$PROJECT_DIR$/FormalizeSite/src/FormalizeSite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FormalizeSite/build/build.iml" filepath="$PROJECT_DIR$/FormalizeSite/build/build.iml" />
+    </modules>
+  </component>
+</project>

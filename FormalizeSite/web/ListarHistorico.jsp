@@ -13,11 +13,14 @@
     <body>
         <%
             List<Servico> listaServicos = (List<Servico>) request.getAttribute("listarServicos");
+            Servico s = listaServicos.get(0);
+            Servico s1 = listaServicos.get(1);            
         %>
                
         <table>
             <tr>
                 <th>Tipo de Serviço</th>
+                <th>Nome</th>
                 <th>Placa</th>
                 <th>Valor</th>
                 <th>Data</th>
@@ -27,6 +30,7 @@
             %>
             <tr>
                 <td><%= servico.getTipoServico() %></td>//<%--tag usada para exibir (<%= %> --%>
+                <td><%= servico.getPlaca().getIdCliente().getNome() %></td>
                 <td><%= servico.getPlaca().getPlaca() %></td>
                 <td><%= servico.getValorServ() %></td>
                 <td><%= servico.getDataServico() %></td>

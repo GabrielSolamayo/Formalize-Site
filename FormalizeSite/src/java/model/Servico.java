@@ -5,7 +5,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,10 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Servico.findAll", query = "SELECT s FROM Servico s"),
+    //@NamedQuery(name = "Servico.findClienteServico", query = "SELECT s FROM Servico s INNER JOIN s.veiculo v INNER JOIN v.cliente c WHERE c.nome LIKE :nomeCli"),
     @NamedQuery(name = "Servico.findByIdServico", query = "SELECT s FROM Servico s WHERE s.idServico = :idServico"),
     @NamedQuery(name = "Servico.findByTipoServico", query = "SELECT s FROM Servico s WHERE s.tipoServico LIKE :tipoServico"),
     @NamedQuery(name = "Servico.findByValorServ", query = "SELECT s FROM Servico s WHERE s.valorServ = :valorServ"),
-    @NamedQuery(name = "Servico.findByDataServico", query = "SELECT s FROM Servico s WHERE s.dataServico = :dataServico")})
+    @NamedQuery(name = "Servico.findByDataServico", query = "SELECT s FROM Servico s WHERE s.dataServico LIKE :dataServico")})
 public class Servico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,8 +49,7 @@ public class Servico implements Serializable {
     private float valorServ;
     @Basic(optional = false)
     @Column(name = "dataServico")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataServico;
+    private String dataServico;
     @JoinColumn(name = "email", referencedColumnName = "email")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Colaborador email;
@@ -67,7 +64,7 @@ public class Servico implements Serializable {
         this.idServico = idServico;
     }
 
-    public Servico(Integer idServico, String tipoServico, float valorServ, Date dataServico) {
+    public Servico(Integer idServico, String tipoServico, float valorServ, String dataServico) {
         this.idServico = idServico;
         this.tipoServico = tipoServico;
         this.valorServ = valorServ;
@@ -98,11 +95,11 @@ public class Servico implements Serializable {
         this.valorServ = valorServ;
     }
 
-    public Date getDataServico() {
+    public String getDataServico() {
         return dataServico;
     }
 
-    public void setDataServico(Date dataServico) {
+    public void setDataServico(String dataServico) {
         this.dataServico = dataServico;
     }
 

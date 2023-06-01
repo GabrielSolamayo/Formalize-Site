@@ -5,6 +5,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -53,7 +54,6 @@ public class Controller extends HttpServlet {
                 String nome, email;
                 nome = acesso.getColaborador().getNome();
                 email = acesso.getColaborador().getEmail();
-                
 
                 session = request.getSession();
                 session.setAttribute("email", email);
@@ -92,13 +92,19 @@ public class Controller extends HttpServlet {
             float valor = Float.parseFloat(request.getParameter("valor").replace(',', '.'));//Convertendo para float o 'text' do formulario;
             servico.setValorServ(valor);
             servico.setPlaca(veiculo);
-            LocalDate dataAtual = LocalDate.now();
-            Date dataA = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            servico.setDataServico(dataA);
-            
-            String emaill = (String) session.getAttribute("email");
-            colab.setEmail(emaill);
-            
+            Date data = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String dataFormatada = formato.format(data);
+            servico.setDataServico(dataFormatada);
+            String emaill;
+            session = request.getSession(false);
+            if (session != null) {
+                emaill = (String) session.getAttribute("email");
+                colab.setEmail(emaill);
+            } else {
+                response.sendRedirect("index.html");
+            }
+
             servico.setEmail(colab);
 
             int resp = new FormalizeDAO().criarForm(servico);
@@ -174,6 +180,10 @@ public class Controller extends HttpServlet {
                 RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
                 disp.forward(request, response);
             } else if (opcoes.equalsIgnoreCase("data")) {
+                List<Servico> servico = dao.listarServicoPlaca(filtro);
+                request.setAttribute("listarServicos", servico);
+                RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
+                disp.forward(request, response);
 
             } else if (opcoes.equalsIgnoreCase("nomeCli")) {
                 List<Servico> servico = dao.listarServicoNomeCli(filtro);
@@ -181,7 +191,10 @@ public class Controller extends HttpServlet {
                 RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
                 disp.forward(request, response);
             } else if (opcoes.equalsIgnoreCase("placa")) {
-
+                List<Servico> servico = dao.listarServicoNomeCli(filtro);
+                request.setAttribute("listarServicos", servico);
+                RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
+                disp.forward(request, response);
             }
 
         }
