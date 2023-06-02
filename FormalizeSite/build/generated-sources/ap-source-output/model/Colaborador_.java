@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import model.Acesso;
 import model.Servico;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-05-25T11:37:52")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-06-02T09:47:37")
 @StaticMetamodel(Colaborador.class)
 public class Colaborador_ { 
 

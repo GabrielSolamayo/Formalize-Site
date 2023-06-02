@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Servico.findAll", query = "SELECT s FROM Servico s"),
-    //@NamedQuery(name = "Servico.findClienteServico", query = "SELECT s FROM Servico s INNER JOIN s.veiculo v INNER JOIN v.cliente c WHERE c.nome LIKE :nomeCli"),
+    @NamedQuery(name = "Servico.findByNomeCliente", query = "SELECT s FROM Servico s JOIN s.placa v JOIN v.idCliente c WHERE c.nome LIKE :nomeCliente"),
+    @NamedQuery(name = "Servico.findByPlacaVeiculo", query = "SELECT s FROM Servico s WHERE s.placa.placa = :placa"),
     @NamedQuery(name = "Servico.findByIdServico", query = "SELECT s FROM Servico s WHERE s.idServico = :idServico"),
     @NamedQuery(name = "Servico.findByTipoServico", query = "SELECT s FROM Servico s WHERE s.tipoServico LIKE :tipoServico"),
     @NamedQuery(name = "Servico.findByValorServ", query = "SELECT s FROM Servico s WHERE s.valorServ = :valorServ"),

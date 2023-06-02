@@ -174,11 +174,13 @@ public class Controller extends HttpServlet {
         } else if (flag.equalsIgnoreCase("FiltrarFormulario")) {
             String opcoes = request.getParameter("opcoes");
             String filtro = request.getParameter("filtrar");
+            
             if (opcoes.equalsIgnoreCase("tipoServ")) {
                 List<Servico> servico = dao.listarServicoTS(filtro);
                 request.setAttribute("listarServicos", servico);
                 RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
                 disp.forward(request, response);
+                
             } else if (opcoes.equalsIgnoreCase("data")) {
                 List<Servico> servico = dao.listarServicoPlaca(filtro);
                 request.setAttribute("listarServicos", servico);
@@ -190,8 +192,9 @@ public class Controller extends HttpServlet {
                 request.setAttribute("listarServicos", servico);
                 RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
                 disp.forward(request, response);
+                
             } else if (opcoes.equalsIgnoreCase("placa")) {
-                List<Servico> servico = dao.listarServicoNomeCli(filtro);
+                List<Servico> servico = dao.listarServicoPlaca(filtro);
                 request.setAttribute("listarServicos", servico);
                 RequestDispatcher disp = request.getRequestDispatcher("ListarHistorico.jsp");
                 disp.forward(request, response);

@@ -99,7 +99,7 @@ public class FormalizeDAO {
     public List<Servico> listarServicoPlaca(String placa) {
         connect();
         try {
-            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByPlacaServ", Servico.class);//Query tirado da classe "Servico";
+            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByPlacaVeiculo", Servico.class);//Query tirado da classe "Servico";
             q.setParameter("placa", placa);
             List<Servico> servicos = q.getResultList();
             return servicos;
@@ -107,24 +107,12 @@ public class FormalizeDAO {
             return null;
         }
     }
-    
-//    public List<Servico> listarServicoNomeCli(String nomeCli) {
-//        connect();
-//        try {
-//            TypedQuery<Servico> q = manager.createQuery("SELECT s FROM Servico s INNER JOIN s.veiculo v INNER JOIN v.cliente c WHERE c.nome LIKE ?", Servico.class);//Query tirado da classe "Servico";
-//            q.setParameter(1, nomeCli + "%");
-//            List<Servico> servicos = q.getResultList();
-//            return servicos;
-//        } catch (NoResultException ex) {
-//            return null;
-//        }
-//    }
 
     public List<Servico> listarServicoNomeCli(String nomeCli) {
         connect();
         try {
-            Query q = manager.createNativeQuery("Select servico.idServico, servico.tipo_servico, servico.placa, servico.valor_serv, servico.dataServico, servico.email from servico inner join veiculo on servico.placa = veiculo.placa inner join cliente on veiculo.idCliente = cliente.idCliente where cliente.nome LIKE ?");
-            q.setParameter(1, nomeCli + "%");
+            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByNomeCliente",Servico.class);
+            q.setParameter("nomeCliente", nomeCli + "%");
             //Começar aqui.
             List<Servico> servicos = q.getResultList();
             return servicos;
@@ -146,23 +134,7 @@ public class FormalizeDAO {
             return null;
         }
     }
-    
-//    public List<Servico> listarServicoPlaca(String placa) {
-//        connect();
-//        try {
-//            TypedQuery<Servico> q = manager.createNamedQuery("Servico.findByTipoServico", Servico.class);//Query tirado da classe "Servico";
-//            q.setParameter("tipoServico", tipoServ);
-//            List<Servico> servicos = q.getResultList();
-//            return servicos;
-//        } catch (NoResultException ex) {
-//            return null;
-//        }
-//    }
-/*  Select servico.idServico, servico.tipo_servico, servico.placa, servico.valor_serv, servico.dataServico from `form-database`.servico
-              inner join veiculo on servico.placa = veiculo.placa
-              inner join cliente on veiculo.idCliente = cliente.idCliente
-              where cliente.nome LIKE 'Gabriel%';
-*/    
+ 
     public int excluirServico(int idServ) {
         connect();
 
